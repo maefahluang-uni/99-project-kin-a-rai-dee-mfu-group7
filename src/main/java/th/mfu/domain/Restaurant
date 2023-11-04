@@ -1,0 +1,18 @@
+
+@Entity
+public class Restaurant {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int rest_id;
+    //private int user_id;
+    //private int restOwner_id;
+    //private int review_id;
+    //private int menu_id; 
+    //private int rest_analytics;
+    private String location;
+    private Date open;
+    //private float rate;
+    
+    
+    // Additional fields, getters, and setters
+}

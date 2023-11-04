@@ -1,0 +1,16 @@
+@Entity
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int user_id;
+    //private int review_id;
+    //private int rest_id;
+    private String user_name;
+    private String user_email;
+    private String user_password;
+    private Date user_birthday;
+    private String user_gender;
+
+    // Additional fields, getters, and setters
+    
+}
