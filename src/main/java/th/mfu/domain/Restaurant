@@ -9,10 +9,12 @@ public class Restaurant {
     //private int review_id;
     //private int menu_id; 
     //private int rest_analytics;
+    
     private String location;
     private Date open;
     //private float rate;
     
     
     // Additional fields, getters, and setters
+
 }
