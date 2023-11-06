@@ -37,3 +37,4 @@ public class ConcertController {
     MenuRepository menuRepo;
 }
 //getmapping to some where
+@GetMapping("")
