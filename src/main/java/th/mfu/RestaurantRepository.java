@@ -8,5 +8,5 @@ import th.mfu.domain.Restaurant;
 
 
 public interface ConcertRepository extends CrudRepository<Restaurant, Int> {
-      
+      //add function...
 }
