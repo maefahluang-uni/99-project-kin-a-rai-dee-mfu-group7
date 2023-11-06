@@ -1,10 +1,11 @@
 package th.mfu.domain;
 
+import java.util.Date; 
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import java.util.Date; 
 
 @Entity
 public class User {
@@ -19,37 +20,59 @@ public class User {
     private Date user_birthday;
     private String user_gender;
 
-    // Additional fields, getters, and setters
-    public String getUser_name(){
-        return user_name ;
-    }
-    public void setUser_name(String user_name){
-        this.user_name = user_name ;
-    }
-   public String getUser_email(){
-    return user_email ;
-   }
-   public void setUser_email(String user_email){
-    this.user_email = user_email ;
-   }
-   public String getUser_password(){
-    return user_password ;
-   }
-   public void setUser_password(String user_password){
-    this.user_password = user_password ;
-   }
-   public Date getUser_birthday(){
-    return user_birthday ; 
-   }
-   public void setUser_birthday(Date user_birthday){
-    this.user_birthday = user_birthday ;
-   }
-   public String getUser_gender(){
-    return user_gender ;
-   }
-   public void setUser_gender(String user_gender){
-    this.user_gender = user_gender ;
-   }
+ // Getter and Setter methods for user_id
+ public int getUser_id() {
+    return user_id;
+}
+
+public void setUser_id(int user_id) {
+    this.user_id = user_id;
+}
+
+// Getter and Setter methods for user_name
+public String getUser_name() {
+    return user_name;
+}
+
+public void setUser_name(String user_name) {
+    this.user_name = user_name;
+}
+
+// Getter and Setter methods for user_email
+public String getUser_email() {
+    return user_email;
+}
+
+public void setUser_email(String user_email) {
+    this.user_email = user_email;
+}
+
+// Getter and Setter methods for user_password
+public String getUser_password() {
+    return user_password;
+}
+
+public void setUser_password(String user_password) {
+    this.user_password = user_password;
+}
+
+// Getter and Setter methods for user_birthday
+public Date getUser_birthday() {
+    return user_birthday;
+}
+
+public void setUser_birthday(Date user_birthday) {
+    this.user_birthday = user_birthday;
+}
+
+// Getter and Setter methods for user_gender
+public String getUser_gender() {
+    return user_gender;
+}
+
+public void setUser_gender(String user_gender) {
+    this.user_gender = user_gender;
+}
 }
 
 // 1.เจ้าของร้านอาหารเข้าสู่ระบบหรือลงทะเบียน  
