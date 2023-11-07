@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -19,6 +20,9 @@ public class User {
     private String user_password;
     private Date user_birthday;
     private String user_gender;
+
+    @OneToMany(cascade = CascadeType.ALL) 
+    private Restaurant restaurant;
 
  // Getter and Setter methods for user_id
  public int getUser_id() {
@@ -73,7 +77,7 @@ public String getUser_gender() {
 public void setUser_gender(String user_gender) {
     this.user_gender = user_gender;
 }
-
+}
 
 // 1.เจ้าของร้านอาหารเข้าสู่ระบบหรือลงทะเบียน  
 // 2. คลิกที่รูปโปรไฟล์ในแถบนำทาง
@@ -83,4 +87,3 @@ public void setUser_gender(String user_gender) {
 
 //เจ้าของร้านอาหารสามารถเพิ่มร้านอาหาร(สูงสุด 3 ร้าน)หรือลบร้านอาหารได้ รวมถึงการเพิ่มเมนูหรือการลบเมนูในร้านอาหาร
 //hello
-// hiyo
