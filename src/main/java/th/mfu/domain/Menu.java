@@ -20,6 +20,7 @@ public class Menu {
     //private String description; จะบอกว่าตรงหน้าเว็บไม่ขึ้นให้ใส่หน้าร้าน ลองดูใน DOC หน้า 29
     private String description;
 
+
         // Getter and Setter methods for menu_id
         public Long getMenu_id() {
             return menu_id;

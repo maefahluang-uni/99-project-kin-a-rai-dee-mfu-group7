@@ -37,4 +37,20 @@ public class ConcertController {
     MenuRepository menuRepo;
 }
 //getmapping to some where
-@GetMapping("")
+@GetMapping("/restaurant")
+public String listRestaurant(Model Model) {
+model.addAttribute("restaurant",restRepo.findAll());
+    return "list-restaurant";
+}
+@GetMapping("/add_restaurant")
+public String addRestaurant(Model model){
+model.addAttribute("newRestaurant",new Restaurant());
+    return "add-restaurant-form";
+}
+@PostMapping("/restaurant")
+public String saveRestaurants(@ModelAttribute Restaurant newRestaurant) {
+      restRepo.save(newRestaurant);
+      return "redirect:/restaurant";
+}
+@Transactional
+

@@ -21,6 +21,8 @@ public class Restaurant {
     private String location;
     private Date open;
     //private float rate;
+
+    
     
     
     // Additional fields, getters, and setters

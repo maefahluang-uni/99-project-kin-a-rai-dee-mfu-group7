@@ -73,7 +73,7 @@ public String getUser_gender() {
 public void setUser_gender(String user_gender) {
     this.user_gender = user_gender;
 }
-}
+
 
 // 1.เจ้าของร้านอาหารเข้าสู่ระบบหรือลงทะเบียน  
 // 2. คลิกที่รูปโปรไฟล์ในแถบนำทาง
@@ -83,3 +83,4 @@ public void setUser_gender(String user_gender) {
 
 //เจ้าของร้านอาหารสามารถเพิ่มร้านอาหาร(สูงสุด 3 ร้าน)หรือลบร้านอาหารได้ รวมถึงการเพิ่มเมนูหรือการลบเมนูในร้านอาหาร
 //hello
+// hiyo
