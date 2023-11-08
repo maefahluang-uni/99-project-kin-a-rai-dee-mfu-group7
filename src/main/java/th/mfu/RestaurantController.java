@@ -35,7 +35,7 @@ public class ConcertController {
 
     @Autowired
     MenuRepository menuRepo;
-}
+
 //getmapping to some where
 @GetMapping("/restaurant")
 public String listRestaurant(Model Model) {
@@ -53,4 +53,21 @@ public String saveRestaurants(@ModelAttribute Restaurant newRestaurant) {
       return "redirect:/restaurant";
 }
 @Transactional
+@GetMapping("/delete-restaurant/{rest_id}")
+public String deleteRestaurant(@PathVariable int rest_id){
+    // งงบรรทัดนี้ แปะไว้ก่อน 
+    restRepo.deleteByRest_id(rest_id);
+    return "redirect:/restaurant";
+}
+//เหมือนจะข้่ามไรไปสักอย่าง แปะไว้ก่อน
+@PostMapping("/restaurant/{rest_id}")
+public String saveRestaurant(@ModelAttribute Restaurant newrestaurant,@PathVariable int rest_id) {     
+    Restaurant restaurant = rest_Repo.findById(rest_id).get();     
+    newrestaurant.setRestaurant(restaurant);    
+    restRepo.save(newrestaurant);
+    return "redirect:/restaurant/"+rest_id+"";
+    // มันดูเเหม่งๆ เเต่ไว้มาเเก้คืนนี้
+}
+}
+
 
