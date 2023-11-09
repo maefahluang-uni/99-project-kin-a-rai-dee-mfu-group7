@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Restaurants</title>
+</head>
+<body>
+
+<h2>List of Restaurants</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Location</th>
+            <th>Open</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Loop through the list of restaurants -->
+        <tr th:each="restaurant : ${restaurants}">
+            <td th:text="${restaurant.rest_id}"></td>
+            <td th:text="${restaurant.location}"></td>
+            <td th:text="${#dates.format(restaurant.open, 'dd-MM-yyyy HH:mm')}"></td>
+            <td>
+                <!-- Link to view restaurant details -->
+                <a th:href="@{/restaurant/{rest_id}(rest_id=${restaurant.rest_id})}">View Details</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

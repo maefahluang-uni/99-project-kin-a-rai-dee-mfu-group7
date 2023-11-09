@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Restaurant {
@@ -23,8 +22,6 @@ public class Restaurant {
     private Date open;
     //private float rate;
     
-    @OneToMany(cascade = CascadeType.ALL) 
-    private Menu menu;
     
     // Additional fields, getters, and setters
     public int getRest_id() {

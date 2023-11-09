@@ -1,2 +1,24 @@
-//ยูเซอร์สร้าง restaurant กับ เพิ่มเมนูในหน้านี้ จากนั้นเพิ่มไปยัง ลิสร้านค้าทั้งหมด ของยูเซอร์ (นี่เป็นการสร้างร้านจำลองเท่านั้น จากนั้นจะต้องส่งคำขอไปยังเเอดมินเพื่ออนุมัตื)
-//ถ้าทำได้ ก็ทำให้ยูเซอร์สามารถ เพิ่มได้เเค่สามร้าน (อันนี้เอาไว้หลังสุด)
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Restaurant</title>
+</head>
+<body>
+
+<h2>Add Restaurant</h2>
+
+<form action="/add-restaurant" method="post" th:object="${restaurant}">
+    <label for="location">Location:</label>
+    <input type="text" id="location" name="location" th:field="*{location}" required>
+    <br>
+
+    <label for="open">Open:</label>
+    <input type="datetime-local" id="open" name="open" th:field="*{open}" required>
+    <br>
+
+    <button type="submit">Save Restaurant</button>
+</form>
+
+</body>
+</html>

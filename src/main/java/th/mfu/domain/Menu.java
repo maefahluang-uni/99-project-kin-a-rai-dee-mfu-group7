@@ -1,12 +1,15 @@
 package th.mfu.domain;
 
-import java.util.Date;
-
 import javax.persistence.CascadeType;
+
+//import java.util.Date;
+
+//import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -19,26 +22,19 @@ public class Menu {
     private float menu_price;
     //private String description; จะบอกว่าตรงหน้าเว็บไม่ขึ้นให้ใส่หน้าร้าน ลองดูใน DOC หน้า 29
     private String description;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private Restaurant restaurant;
  
         // Getter and Setter methods for menu_id
-        public Long getMenu_id() {
+        public int getMenu_id() {
             return menu_id;
         }
     
-        public void setMenu_id(Long menu_id) {
+        public void setMenu_id(int menu_id) {
             this.menu_id = menu_id;
         }
     
-        // Getter and Setter methods for rest_id
-        public Long getRest_id() {
-            return rest_id;
-        }
-    
-        public void setRest_id(Long rest_id) {
-            this.rest_id = rest_id;
-        }
-    
-        // Getter and Setter methods for menu_name
         public String getMenu_name() {
             return menu_name;
         }
@@ -63,5 +59,15 @@ public class Menu {
     
         public void setDescription(String description) {
             this.description = description;
+        }
+
+        public Restaurant getRestaurant() {
+            return null;
+        }
+
+        public void setRestaurant(Restaurant restaurant2) {
+        }
+
+        public void setRestauran(Restaurant restaurant2) {
         }
     }
