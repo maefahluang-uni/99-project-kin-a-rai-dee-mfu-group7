@@ -1,9 +1,16 @@
 package th.mfu;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -19,12 +26,18 @@ public class RestaurantController {
     @Autowired
     private MenuRepository menuRepository;
 
+     @InitBinder
+    public final void initBinderUsuariosFormValidator(final WebDataBinder binder, final Locale locale) {
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", locale);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+
     @GetMapping("/add-restaurant")
     public String showAddRestaurantForm(Model model) {
         model.addAttribute("restaurant", new Restaurant());
         return "add-restaurant-form";
     }
-
+                                                                                                            
     @PostMapping("/add-restaurant")
     public String addRestaurant(Restaurant restaurant) {
         restaurantRepository.save(restaurant);
