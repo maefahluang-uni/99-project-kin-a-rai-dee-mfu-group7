@@ -1,3 +1,5 @@
+<!-- src/main/resources/templates/add-restaurant-form.html -->
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -5,20 +7,15 @@
     <title>Add Restaurant</title>
 </head>
 <body>
-
-<h2>Add Restaurant</h2>
-
-<form action="/add-restaurant" method="post" th:object="${restaurant}">
-    <label for="location">Location:</label>
-    <input type="text" id="location" name="location" th:field="*{location}" required>
-    <br>
-
-    <label for="open">Open:</label>
-    <input type="datetime-local" id="open" name="open" th:field="*{open}" required>
-    <br>
-
-    <button type="submit">Save Restaurant</button>
-</form>
-
+    <h2>Add Restaurant</h2>
+    <form action="/restaurants" method="post" th:object="${restaurant}">
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" th:field="*{location}" required>
+        <br>
+        <label for="open">Open Date:</label>
+        <input type="date" id="open" name="open" th:field="*{open}" required>
+        <br>
+        <button type="submit">Save</button>
+    </form>
 </body>
 </html>

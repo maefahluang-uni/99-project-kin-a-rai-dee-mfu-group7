@@ -1,0 +1,32 @@
+<!-- src/main/resources/templates/list-restaurants.html -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Restaurants</title>
+</head>
+<body>
+    <h2>Restaurant List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Location</th>
+                <th>Open Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="restaurant : ${restaurants}">
+                <td th:text="${restaurant.id}"></td>
+                <td th:text="${restaurant.location}"></td>
+                <td th:text="${#dates.format(restaurant.open, 'yyyy-MM-dd')}"></td>
+                <td>
+                    <a th:href="@{/delete-restaurant/{id}(id=${restaurant.id})}">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

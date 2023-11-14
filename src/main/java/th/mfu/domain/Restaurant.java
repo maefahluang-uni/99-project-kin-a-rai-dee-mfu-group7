@@ -11,27 +11,28 @@ import javax.persistence.Id;
 public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int rest_id;
+    private int id;  // Changed from rest_id to id
+
     //private int user_id;
     //private int restOwner_id;
     //private int review_id;
     //private int menu_id; 
     //private int rest_analytics;
-    
+
     private String location;
     private Date open;
     //private float rate;
-    
-    
+
+    // Getter and Setter methods for id
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     // Additional fields, getters, and setters
-    public int getRest_id() {
-        return rest_id;
-    }
-
-    public void setRest_id(int rest_id) {
-        this.rest_id = rest_id;
-    }
-
     public String getLocation() {
         return location;
     }

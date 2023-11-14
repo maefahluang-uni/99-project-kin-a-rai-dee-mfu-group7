@@ -2,7 +2,10 @@ package th.mfu;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -11,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -19,49 +23,70 @@ import th.mfu.domain.Restaurant;
 
 @Controller
 public class RestaurantController {
+    @Autowired
+    private RestaurantRepository restaurantRepo;
 
     @Autowired
-    private RestaurantRepository restaurantRepository;
+    private MenuRepository menuRepo;
 
-    @Autowired
-    private MenuRepository menuRepository;
-
-     @InitBinder
+    @InitBinder
     public final void initBinderUsuariosFormValidator(final WebDataBinder binder, final Locale locale) {
         final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", locale);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 
+    @GetMapping("/restaurants")
+    public String listRestaurants(Model model) {
+        model.addAttribute("restaurants", restaurantRepo.findAll());
+        return "list-restaurants";
+    }
+
     @GetMapping("/add-restaurant")
-    public String showAddRestaurantForm(Model model) {
+    public String addARestaurantForm(Model model) {
         model.addAttribute("restaurant", new Restaurant());
         return "add-restaurant-form";
     }
-                                                                                                            
-    @PostMapping("/add-restaurant")
-    public String addRestaurant(Restaurant restaurant) {
-        restaurantRepository.save(restaurant);
-        return "redirect:/add-menu/" + restaurant.getRest_id();
+
+    @PostMapping("/restaurants")
+    public String saveRestaurant(@ModelAttribute Restaurant restaurant) {
+        restaurantRepo.save(restaurant);
+        return "redirect:/restaurants";
     }
 
-    @GetMapping("/add-menu/{rest_id}")
-    public String showAddMenuForm(Model model, @PathVariable int rest_id) {
-        Restaurant restaurant = restaurantRepository.findById(rest_id).orElse(null);
-        if (restaurant != null) {
-            Menu menu = new Menu();
-            menu.setRestauran(restaurant);
-            model.addAttribute("menu", menu);
-            return "add-menu-form";
-        }
-        else {
-            // Handle restaurant not found error
-            return "redirect:/add-restaurant";
-        }
+    @Transactional
+    @GetMapping("/delete-restaurant/{id}")
+    public String deleteRestaurant(@PathVariable int id) {
+        menuRepo.deleteByRestaurantId(id);
+        restaurantRepo.deleteById(id);
+        return "redirect:/restaurants";
     }
 
-    @PostMapping("/add-menu")
-    public String addMenu(Menu menu) {
-        menuRepository.save(menu);
-        return "redirect:/restaurant/" + menu.getRestaurant().getRest_id();
+    @GetMapping("/restaurants/{id}/menus")
+    public String showAddMenuForm(Model model, @PathVariable int id) {
+        model.addAttribute("menus", menuRepo.findByRestaurantId(id));
+
+        Restaurant restaurant = restaurantRepo.findById(id).orElse(null);
+        if (restaurant == null) {
+            // Handle the case where the restaurant is not found
+            return "redirect:/restaurants";
+        }
+
+        Menu menu = new Menu();
+        menu.setRestaurant(restaurant);
+        model.addAttribute("newMenu", menu);
+        return "menu-mgmt";
+    }
+
+    @PostMapping("/restaurants/{id}/menus")
+    public String saveMenu(@ModelAttribute Menu newMenu, @PathVariable int id) {
+        Restaurant restaurant = restaurantRepo.findById(id).orElse(null);
+        if (restaurant == null) {
+            // Handle the case where the restaurant is not found
+            return "redirect:/restaurants";
+        }
+
+        newMenu.setRestaurant(restaurant);
+        menuRepo.save(newMenu);
+        return "redirect:/restaurants/" + id + "/menus";
     }
 }
