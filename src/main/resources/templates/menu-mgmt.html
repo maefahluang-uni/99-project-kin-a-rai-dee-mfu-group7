@@ -1,0 +1,26 @@
+<!-- src/main/resources/templates/menu-mgmt.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Include necessary head elements -->
+</head>
+<body>
+    <h2>Add Menu</h2>
+    <form action="#" th:action="@{/menus/save}" th:object="${menu}" method="post">
+        <div class="form-group">
+            <label for="menu_name">Menu Name:</label>
+            <input type="text" id="menu_name" name="menu_name" th:field="*{menu_name}" required>
+        </div>
+        <div class="form-group">
+            <label for="menu_price">Menu Price:</label>
+            <input type="text" id="menu_price" name="menu_price" th:field="*{menu_price}" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" th:field="*{description}" required></textarea>
+        </div>
+        <!-- Add other form fields as needed -->
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</body>
+</html>

@@ -48,10 +48,16 @@ public class RestaurantController {
     }
 
     @PostMapping("/restaurants")
-    public String saveRestaurant(@ModelAttribute Restaurant restaurant) {
+public String saveRestaurant(@ModelAttribute Restaurant restaurant) {
+    try {
         restaurantRepo.save(restaurant);
-        return "redirect:/restaurants";
+    } catch (Exception e) {
+        // Log the exception for debugging purposes
+        e.printStackTrace();
+        // You can add more detailed logging as needed
     }
+    return "redirect:/restaurants";
+}
 
     @Transactional
     @GetMapping("/delete-restaurant/{id}")

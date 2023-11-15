@@ -12,7 +12,7 @@ public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;  // Changed from rest_id to id
-
+    private String name;
     //private int user_id;
     //private int restOwner_id;
     //private int review_id;
@@ -24,6 +24,14 @@ public class Restaurant {
     //private float rate;
 
     // Getter and Setter methods for id
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }

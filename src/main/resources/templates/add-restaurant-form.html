@@ -1,0 +1,18 @@
+<!-- add-restaurant-form.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Include necessary head elements -->
+</head>
+<body>
+    <h2>Add Restaurant</h2>
+    <form action="#" th:action="@{/restaurants}" th:object="${restaurant}" method="post">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" th:field="*{name}" required>
+        </div>
+        <!-- Add other form fields as needed -->
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</body>
+</html>
