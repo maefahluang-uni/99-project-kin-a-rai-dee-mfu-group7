@@ -21,6 +21,7 @@ public class Restaurant {
 
     private String location;
     private Date open;
+    private String description;
     //private float rate;
 
     // Getter and Setter methods for id
@@ -56,4 +57,13 @@ public class Restaurant {
     public void setOpen(Date open) {
         this.open = open;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
 }

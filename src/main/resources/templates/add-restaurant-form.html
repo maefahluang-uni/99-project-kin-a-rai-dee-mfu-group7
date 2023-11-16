@@ -11,6 +11,18 @@
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" th:field="*{name}" required>
         </div>
+        <div class="form-group">
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" th:field="*{location}" required>
+        </div>
+        <div class="form-group">
+            <label for="open">Open Time:</label>
+            <input type="datetime-local" id="open" name="open" th:field="*{open}" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" th:field="*{description}" required></textarea>
+        </div>
         <!-- Add other form fields as needed -->
         <button type="submit" class="btn btn-primary">Save</button>
     </form>

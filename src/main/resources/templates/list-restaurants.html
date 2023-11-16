@@ -1,5 +1,4 @@
 <!-- list-restaurants.html -->
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -14,6 +13,9 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
+            <th>Location</th>
+            <th>Open Time</th>
+            <th>Description</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -21,9 +23,12 @@
         <tr th:each="restaurant : ${restaurants}">
             <td th:text="${restaurant.id}"></td>
             <td th:text="${restaurant.name}"></td>
+            <td th:text="${restaurant.location}"></td>
+            <td th:text="${#dates.format(restaurant.open, 'yyyy-MM-dd HH:mm:ss')}"></td>
+            <td th:text="${restaurant.description}"></td>
             <td>
                 <a th:href="@{/restaurants/{id}/menus(id=${restaurant.id})}">View Menus</a>
-                <a th:href="@{/edit-restaurant/{id}(id=${restaurant.id})}">Edit</a>
+                <a th:href="@{/edit-restaurant/{id}(id=${restaurant.id})}">Manage</a>
                 <a th:href="@{/delete-restaurant/{id}(id=${restaurant.id})}" onclick="return confirm('Are you sure you want to delete this restaurant?')">Delete</a>
             </td>
         </tr>
@@ -35,3 +40,4 @@
 <a th:href="@{/add-restaurant}">Add Restaurant</a>
 
 </body>
+</html>

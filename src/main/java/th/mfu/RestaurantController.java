@@ -48,18 +48,16 @@ public class RestaurantController {
     }
 
     @PostMapping("/restaurants")
-public String saveRestaurant(@ModelAttribute Restaurant restaurant) {
-    try {
-        restaurantRepo.save(restaurant);
-    } catch (Exception e) {
-        // Log the exception for debugging purposes
-        e.printStackTrace();
-        // You can add more detailed logging as needed
+    public String saveRestaurant(@ModelAttribute Restaurant restaurant) {
+        try {
+            restaurantRepo.save(restaurant);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/restaurants";
     }
-    return "redirect:/restaurants";
-}
 
-    @Transactional
+     @Transactional
     @GetMapping("/delete-restaurant/{id}")
     public String deleteRestaurant(@PathVariable int id) {
         menuRepo.deleteByRestaurantId(id);
@@ -95,4 +93,5 @@ public String saveRestaurant(@ModelAttribute Restaurant restaurant) {
         menuRepo.save(newMenu);
         return "redirect:/restaurants/" + id + "/menus";
     }
+
 }
