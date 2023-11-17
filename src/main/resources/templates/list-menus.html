@@ -1,10 +1,9 @@
-<!-- list-restaurants.html -->
+<!-- list-menus.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Restaurant Lists</title>
+    <title>Menu List</title>
     <style>
-        /* Styles for better presentation (you can adjust as needed) */
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
@@ -15,7 +14,7 @@
         }
 
         table {
-            width: 100%;
+            width: 60%;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
@@ -56,50 +55,33 @@
             color: white;
             border-radius: 3px;
         }
-
-        .menu-link {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 5px 10px;
-            text-decoration: none;
-            background-color: #007BFF;
-            color: white;
-            border-radius: 3px;
-        }
     </style>
 </head>
 <body>
 
-<h2>Restaurant List</h2>
+<h2>Menu Lists</h2>
 
 <table>
     <thead>
         <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>Location</th>
-            <th>Open Time</th>
-            <th>Description</th>
+            <th>Menu Name</th>
+            <th>Menu Price</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        <tr th:each="restaurant : ${restaurants}">
-            <td th:text="${restaurant.id}"></td>
-            <td th:text="${restaurant.name}"></td>
-            <td th:text="${restaurant.location}"></td>
-            <td th:text="${#dates.format(restaurant.open, 'yyyy-MM-dd HH:mm:ss')}"></td>
-            <td th:text="${restaurant.description}"></td>
+        <tr th:each="menu : ${menus}">
+            <td th:text="${menu.menu_name}"></td>
+            <td th:text="${menu.menu_price}"></td>
             <td class="actions">
-                <a th:href="@{/restaurants/{id}/menus(id=${restaurant.id})}">View/Manage menu</a>
-                <a th:href="@{/edit-restaurant/{id}(id=${restaurant.id})}">Edit</a>
-                <a th:href="@{/delete-restaurant/{id}(id=${restaurant.id})}" onclick="return confirm('Are you sure you want to delete this restaurant?')">Delete</a>
+                <a th:href="@{/delete-menu/{id}(id=${menu.id})}" onclick="return confirm('Are you sure you want to delete this menu?')">Delete</a>
             </td>
         </tr>
     </tbody>
 </table>
-
-<a th:href="@{/add-restaurant}" class="add-link">Add Restaurant</a>
+<a th:href="@{/add-menu/{id}(id=${restaurant.id})}" class="add-link">Add Menu</a>
+<a th:href="@{/restaurants}" class="back-link">Back to Restaurant Lists</a>
 
 </body>
 </html>
