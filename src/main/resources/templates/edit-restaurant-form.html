@@ -21,5 +21,18 @@
     <button type="submit">Save Changes</button>
 </form>
 
+<!-- Section to display menus -->
+<h3>Menus</h3>
+<ul>
+    <li th:each="menu : ${menus}">
+        <span th:text="${menu.menu_name}"></span>
+        <span> | </span>
+        <a th:href="@{/delete-menu/{id}(id=${menu.id})}" onclick="return confirm('Are you sure you want to delete this menu?')">Delete</a>
+    </li>
+</ul>
+
+<!-- Link to add a new menu -->
+<a th:href="@{/add-menu/{id}(id=${restaurant.id})}">Add Menu</a>
+
 </body>
 </html>

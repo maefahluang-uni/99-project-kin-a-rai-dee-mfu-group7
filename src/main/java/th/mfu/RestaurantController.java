@@ -18,10 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-
 import th.mfu.domain.Menu;
 import th.mfu.domain.Restaurant;
 
@@ -72,19 +68,23 @@ public class RestaurantController {
         return "redirect:/restaurants";
     }
 
-        @GetMapping("/edit-restaurant/{id}")
+    @GetMapping("/edit-restaurant/{id}")
     public String editRestaurantForm(@PathVariable int id, Model model) {
         Restaurant restaurant = restaurantRepo.findById(id).orElse(null);
-
+    
         if (restaurant == null) {
             // Handle the case where the restaurant is not found
             return "redirect:/restaurants";
         }
-
+    
+        List<Menu> menus = menuRepo.findByRestaurantId(id);
+    
         model.addAttribute("restaurant", restaurant);
+        model.addAttribute("menus", menus);
+    
         return "edit-restaurant-form";
     }
-
+    
     @PostMapping("/edit-restaurant/{id}")
     public String editRestaurant(@PathVariable int id, @ModelAttribute Restaurant editedRestaurant) {
         Restaurant existingRestaurant = restaurantRepo.findById(id).orElse(null);
@@ -102,77 +102,58 @@ public class RestaurantController {
         restaurantRepo.save(existingRestaurant);
         return "redirect:/restaurants";
     }
-
+    
     @GetMapping("/restaurants/{id}/menus")
-    public String showMenus(@PathVariable int id, Model model) {
-        // Fetch menus for the restaurant with the given id and add them to the model
-        List<Menu> menus = menuRepo.findByRestaurantId(id);
-        model.addAttribute("menus", menus);
-    
-        // Fetch restaurant details and add them to the model
+    public String viewManageMenus(@PathVariable int id, Model model) {
         Restaurant restaurant = restaurantRepo.findById(id).orElse(null);
-        model.addAttribute("restaurant", restaurant);
     
-        // Add an empty menu object to the model (for the form)
-        model.addAttribute("newMenu", new Menu());
+        if (restaurant == null) {
+            // Handle the case where the restaurant is not found
+            return "redirect:/restaurants";
+        }
+    
+        List<Menu> menus = restaurant.getMenus();
+        model.addAttribute("restaurant", restaurant);
+        model.addAttribute("menus", menus);
     
         return "list-menus";
     }
-
-    @GetMapping("/add-menu/{id}")
-public String showAddMenuForm(@PathVariable int id, Model model) {
-    // Fetch the restaurant with the given id
+    
+    @GetMapping("/restaurants/{id}/add-menu")
+public String addMenuForm(@PathVariable int id, Model model) {
     Restaurant restaurant = restaurantRepo.findById(id).orElse(null);
 
-    // Make sure the restaurant exists
     if (restaurant == null) {
         // Handle the case where the restaurant is not found
         return "redirect:/restaurants";
     }
 
-    // Add the restaurant object to the model
+    model.addAttribute("newMenu", new Menu());
     model.addAttribute("restaurant", restaurant);
 
-    // Add an empty menu object to the model (for the form)
-    model.addAttribute("newMenu", new Menu());
-
-    return "add-menu-form";  // Return the view name, not a redirect
+    return "add-menu-form";
     }
 
-    @PostMapping("/restaurants/{id}/menus")
-public String saveMenu(@ModelAttribute Menu newMenu, @PathVariable int id, Model model) {
-    // Fetch the restaurant with the given ID
+    @PostMapping(value = "/restaurants/{id}/menus", produces = "text/html")
+    public String addMenu(@PathVariable int id, @ModelAttribute Menu newMenu) {
     Restaurant restaurant = restaurantRepo.findById(id).orElse(null);
 
-    // Make sure the restaurant exists
     if (restaurant == null) {
         // Handle the case where the restaurant is not found
         return "redirect:/restaurants";
     }
 
-    // Set the restaurant for the new menu
     newMenu.setRestaurant(restaurant);
-
-    // Save the new menu
     menuRepo.save(newMenu);
 
-    // Redirect to the menu list page for the restaurant
-    return "redirect:/restaurants/" + id + "/menus";
-}
-
-
-    @Transactional
-    @GetMapping("/delete-menu/{id}")
-    public String deleteMenu(@PathVariable int id) {
-        Menu menu = menuRepo.findById(id).orElse(null);
-        if (menu == null) {
-            // Handle the case where the menu is not found
-            return "redirect:/restaurants";
-        }
-
-        int restaurantId = menu.getRestaurant().getId();
-        menuRepo.deleteById(id);
-
-        return "redirect:/restaurants/" + restaurantId + "/menus";
+    return "redirect:/restaurants/{id}/menus";
     }
+
+@GetMapping("/restaurants/{id}/delete-menu/{menuId}")
+public String deleteMenu(@PathVariable int id, @PathVariable int menuId) {
+    menuRepo.deleteById(menuId);
+
+    return "redirect:/restaurants/{id}/menus";
+    }
+
 }

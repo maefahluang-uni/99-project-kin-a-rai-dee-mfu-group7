@@ -8,8 +8,9 @@
 
 <h2>Add Menu for Restaurant: <span th:text="${restaurant.name}"></span></h2>
 
-<form action="@{/restaurants/{id}/menus(id=${newMenu.restaurant.id})}" method="post" th:object="${newMenu}">
+<form th:action="@{/restaurants/{id}/menus(id=${restaurant.id})}" method="post" th:object="${newMenu}">
     <!-- Add a hidden input field to capture the restaurant ID -->
+    <input type="hidden" th:field="*{restaurant}" th:value="${restaurant}" />
 
     <label for="menu_name">Menu Name:</label>
     <input type="text" id="menu_name" name="menu_name" th:field="*{menu_name}" required>
@@ -22,4 +23,3 @@
 
 </body>
 </html>
-

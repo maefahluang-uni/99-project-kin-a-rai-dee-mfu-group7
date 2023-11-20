@@ -1,6 +1,8 @@
 package th.mfu.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -27,8 +29,9 @@ public class Restaurant {
     private String description;
     //private float rate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Menu menu;
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    private List<Menu> menus = new ArrayList<>();
+
 
     // Getter and Setter methods for id
     public String getName() {
@@ -70,6 +73,14 @@ public class Restaurant {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    public List<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(List<Menu> menus) {
+        this.menus = menus;
     }
     
 }
