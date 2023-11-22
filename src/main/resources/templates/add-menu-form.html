@@ -8,7 +8,7 @@
 
 <h2>Add Menu for Restaurant: <span th:text="${restaurant.name}"></span></h2>
 
-<form th:action="@{/restaurants/{id}/menus(id=${restaurant.id})}" method="post" th:object="${newMenu}">
+<form th:action="@{/restaurants/{id}/menus(id=${restaurant.id})}" method="post" th:object="${newMenu}" enctype="multipart/form-data">
     <!-- Add a hidden input field to capture the restaurant ID -->
     <input type="hidden" th:field="*{restaurant}" th:value="${restaurant}" />
 
@@ -17,6 +17,10 @@
 
     <label for="menu_price">Menu Price:</label>
     <input type="text" id="menu_price" name="menu_price" th:field="*{menu_price}" required>
+
+    <!-- Add this input for photo upload -->
+    <label for="menuPhoto">Menu Photo:</label>
+    <input type="file" id="menuPhoto" name="menuPhoto" accept="image/*">
 
     <button type="submit">Add Menu</button>
 </form>

@@ -7,6 +7,9 @@ import java.util.Locale;
 
 import javax.transaction.Transactional;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -17,6 +20,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import th.mfu.domain.Menu;
 import th.mfu.domain.Restaurant;
@@ -120,7 +125,7 @@ public class RestaurantController {
     }
     
     @GetMapping("/restaurants/{id}/add-menu")
-public String addMenuForm(@PathVariable int id, Model model) {
+    public String addMenuForm(@PathVariable int id, Model model) {
     Restaurant restaurant = restaurantRepo.findById(id).orElse(null);
 
     if (restaurant == null) {
@@ -134,19 +139,55 @@ public String addMenuForm(@PathVariable int id, Model model) {
     return "add-menu-form";
     }
 
-    @PostMapping(value = "/restaurants/{id}/menus", produces = "text/html")
-    public String addMenu(@PathVariable int id, @ModelAttribute Menu newMenu) {
-    Restaurant restaurant = restaurantRepo.findById(id).orElse(null);
+    @PostMapping("/restaurants/{id}/menus")
+public String addMenu(@PathVariable int id, @ModelAttribute Menu newMenu, @RequestParam("menuPhoto") MultipartFile menuPhoto) {
+        try {
+            Restaurant restaurant = restaurantRepo.findById(id).orElse(null);
+    
+            if (restaurant == null) {
+                System.err.println("Restaurant not found with ID: " + id);
+                return "redirect:/restaurants";
+            }
+    
+            System.out.println("Received request to add menu. Restaurant ID: " + id);
+    
+            // Create a new Menu instance
+            Menu menuToAdd = new Menu();
+    
+            // Set the Restaurant reference
+            menuToAdd.setRestaurant(restaurant);
+    
+            // Set the properties from the newMenu object
+            menuToAdd.setMenu_name(newMenu.getMenu_name());
+            menuToAdd.setMenu_price(newMenu.getMenu_price());
 
-    if (restaurant == null) {
-        // Handle the case where the restaurant is not found
-        return "redirect:/restaurants";
-    }
+            if (menuPhoto != null && !menuPhoto.isEmpty()) {
+                String photoFileName = "menu_" + menuToAdd.getId() + ".jpg";
+                File photoFile = new File("/path/to/your/photo/directory/" + photoFileName);
 
-    newMenu.setRestaurant(restaurant);
-    menuRepo.save(newMenu);
+                // Ensure the directory exists, create it if not
+                if (!photoFile.getParentFile().exists()) {
+                    photoFile.getParentFile().mkdirs();
+                }
 
-    return "redirect:/restaurants/{id}/menus";
+                // Handle the menu photo - save it to a specific directory or storage service
+                menuPhoto.transferTo(photoFile);
+                menuToAdd.setMenuPhotoUrl("/path/to/your/photo/directory/" + photoFileName);
+            }
+            // Print information about the new menu
+            System.out.println("Received new menu details - Name: " + menuToAdd.getMenu_name()
+                    + ", Price: " + menuToAdd.getMenu_price());
+    
+            // Save the new menu
+            menuRepo.save(menuToAdd);
+    
+            System.out.println("Menu saved successfully.");
+    
+            return "redirect:/restaurants/{id}/menus";
+             } catch (Exception e) {
+            System.err.println("Error adding menu: " + e.getMessage());
+            return "redirect:/restaurants";
+        }
     }
 
 @GetMapping("/restaurants/{id}/delete-menu/{menuId}")
@@ -154,6 +195,59 @@ public String deleteMenu(@PathVariable int id, @PathVariable int menuId) {
     menuRepo.deleteById(menuId);
 
     return "redirect:/restaurants/{id}/menus";
+    }
+
+    @GetMapping("/restaurants/{id}/edit-menu/{menuId}")
+public String editMenuForm(@PathVariable int id, @PathVariable int menuId, Model model) {
+    Restaurant restaurant = restaurantRepo.findById(id).orElse(null);
+
+    if (restaurant == null) {
+        return "redirect:/restaurants";
+    }
+
+    Menu menu = menuRepo.findById(menuId).orElse(null);
+
+    if (menu == null || menu.getRestaurant().getId() != id) {
+        return "redirect:/restaurants/{id}/menus";
+    }
+
+    model.addAttribute("restaurant", restaurant);
+    model.addAttribute("menu", menu);
+
+    return "edit-menu-form";
+}
+
+@PostMapping("/restaurants/{id}/edit-menu/{menuId}")
+    public String editMenu(@PathVariable int id, @PathVariable int menuId, @ModelAttribute Menu editedMenu, @RequestParam("menuPhoto") MultipartFile menuPhoto) throws IllegalStateException, IOException {
+        Menu existingMenu = menuRepo.findById(menuId).orElse(null);
+
+        if (existingMenu == null || existingMenu.getRestaurant().getId() != id) {
+            return "redirect:/restaurants/{id}/menus";
+        }
+
+        // Update the fields with the edited values
+        existingMenu.setMenu_name(editedMenu.getMenu_name());
+        existingMenu.setMenu_price(editedMenu.getMenu_price());
+
+        // Save the photo if provided
+        if (menuPhoto != null && !menuPhoto.isEmpty()) {
+            String photoFileName = "menu_" + existingMenu.getId() + ".jpg";
+            File photoFile = new File("/path/to/your/photo/directory/" + photoFileName);
+
+            // Ensure the directory exists, create it if not
+            if (!photoFile.getParentFile().exists()) {
+                photoFile.getParentFile().mkdirs();
+            }
+
+            // Handle the menu photo - save it to a specific directory or storage service
+            menuPhoto.transferTo(photoFile);
+            existingMenu.setMenuPhotoUrl("/path/to/your/photo/directory/" + photoFileName);
+        }
+
+        // Save the edited menu
+        menuRepo.save(existingMenu);
+
+        return "redirect:/restaurants/{id}/menus";
     }
 
 }

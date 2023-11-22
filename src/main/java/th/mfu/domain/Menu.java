@@ -16,9 +16,11 @@ public class Menu {
 
     private String menu_name;
     private float menu_price;
-    private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    private String menuPhotoUrl; // New field for storing photo URL
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "restaurant_id") 
     private Restaurant restaurant;
 
     // Getter and Setter methods for id
@@ -48,20 +50,19 @@ public class Menu {
         this.menu_price = menu_price;
     }
 
-    // Getter and Setter methods for description
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public Restaurant getRestaurant() {
         return restaurant;
     }
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
+    }
+
+    public String getMenuPhotoUrl() {
+        return menuPhotoUrl;
+    }
+
+    public void setMenuPhotoUrl(String menuPhotoUrl) {
+        this.menuPhotoUrl = menuPhotoUrl;
     }
 }

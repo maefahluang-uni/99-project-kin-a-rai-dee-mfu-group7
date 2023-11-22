@@ -19,6 +19,7 @@
             <th>Location</th>
             <th>Open Time</th>
             <th>Description</th>
+            <th>Photo</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -31,6 +32,12 @@
             <td th:text="${restaurant.location}"></td>
             <td th:text="${#dates.format(restaurant.open, 'yyyy-MM-dd HH:mm:ss')}"></td>
             <td th:text="${restaurant.description}"></td>
+            <!-- Display the photo if available -->
+            <td>
+                <div th:if="${not #strings.isEmpty(restaurant.photoUrl)}">
+                    <img th:src="${restaurant.photoUrl}" alt="Restaurant Photo" style="max-width: 100px; max-height: 100px;">
+                </div>
+            </td>
             <!-- Actions -->
             <td class="actions">
                 <!-- Link to view/manage menu for the restaurant -->

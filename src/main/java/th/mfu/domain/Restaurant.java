@@ -27,10 +27,11 @@ public class Restaurant {
     private String location;
     private Date open;
     private String description;
+    private String restaurantPhotoUrl;
     //private float rate;
 
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
-    private List<Menu> menus = new ArrayList<>();
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Menu> menus;
 
 
     // Getter and Setter methods for id
@@ -81,6 +82,14 @@ public class Restaurant {
 
     public void setMenus(List<Menu> menus) {
         this.menus = menus;
+    }
+    
+    public String getRestaurantPhotoUrl() {
+        return restaurantPhotoUrl;
+    }
+
+    public void setRestaurantPhotoUrl(String restaurantPhotoUrl) {
+        this.restaurantPhotoUrl = restaurantPhotoUrl;
     }
     
 }

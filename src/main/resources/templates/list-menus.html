@@ -64,7 +64,7 @@
 <table>
     <thead>
         <tr>
-            <th>ID</th>
+            <th>Menu Photo</th>
             <th>Menu Name</th>
             <th>Menu Price</th>
             <th>Actions</th>
@@ -72,12 +72,11 @@
     </thead>
     <tbody>
         <tr th:each="menu : ${menus}">
-            <td th:text="${menu.id}"></td>
             <td th:text="${menu.menu_name}"></td>
             <td th:text="${menu.menu_price}"></td>
             <td class="actions">
-                <a th:href="@{/restaurants/{id}/delete-menu/{menuId}(id=${restaurant.id}, menuId=${menu.id})}"
-                   onclick="return confirm('Are you sure you want to delete this menu?')">Delete</a>
+                <a th:href="@{/restaurants/{id}/delete-menu/{menuId}(id=${restaurant.id}, menuId=${menu.id})}" onclick="return confirm('Are you sure you want to delete this menu?')">Delete</a>
+                <a th:href="@{/restaurants/{id}/edit-menu/{menuId}(id=${restaurant.id}, menuId=${menu.id})}">Edit</a>
             </td>
         </tr>
     </tbody>
