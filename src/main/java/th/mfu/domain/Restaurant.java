@@ -1,6 +1,5 @@
 package th.mfu.domain;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,8 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Restaurant {
@@ -18,30 +19,18 @@ public class Restaurant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;  // Changed from rest_id to id
     private String name;
-    //private int user_id;
-    //private int restOwner_id;
-    //private int review_id;
-    //private int menu_id; 
-    //private int rest_analytics;
-
     private String location;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Date open;
+
     private String description;
-    private String restaurantPhotoUrl;
-    //private float rate;
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Menu> menus;
 
-
-    // Getter and Setter methods for id
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    // Getter and Setter methods for id, name, location, open, description, restPhoto, menus
+    // Omitted for brevity, but you should include getters and setters for all fields
 
     public int getId() {
         return id;
@@ -51,7 +40,14 @@ public class Restaurant {
         this.id = id;
     }
 
-    // Additional fields, getters, and setters
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getLocation() {
         return location;
     }
@@ -75,7 +71,7 @@ public class Restaurant {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
     public List<Menu> getMenus() {
         return menus;
     }
@@ -83,13 +79,4 @@ public class Restaurant {
     public void setMenus(List<Menu> menus) {
         this.menus = menus;
     }
-    
-    public String getRestaurantPhotoUrl() {
-        return restaurantPhotoUrl;
-    }
-
-    public void setRestaurantPhotoUrl(String restaurantPhotoUrl) {
-        this.restaurantPhotoUrl = restaurantPhotoUrl;
-    }
-    
 }

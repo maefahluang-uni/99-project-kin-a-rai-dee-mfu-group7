@@ -17,8 +17,6 @@ public class Menu {
     private String menu_name;
     private float menu_price;
 
-    private String menuPhotoUrl; // New field for storing photo URL
-
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "restaurant_id") 
     private Restaurant restaurant;
@@ -58,11 +56,4 @@ public class Menu {
         this.restaurant = restaurant;
     }
 
-    public String getMenuPhotoUrl() {
-        return menuPhotoUrl;
-    }
-
-    public void setMenuPhotoUrl(String menuPhotoUrl) {
-        this.menuPhotoUrl = menuPhotoUrl;
-    }
 }

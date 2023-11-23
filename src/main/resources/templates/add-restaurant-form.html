@@ -6,8 +6,7 @@
 </head>
 <body>
     <h2>Add Restaurant</h2>
-    <form action="#" th:action="@{/restaurants}" th:object="${restaurant}" method="post" enctype="multipart/form-data">
-
+    <form action="#" th:action="@{/restaurants}" th:object="${restaurant}" method="post">
         <div class="form-group">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" th:field="*{name}" required>
@@ -23,15 +22,8 @@
         <div class="form-group">
             <label for="description">Description:</label>
             <textarea id="description" name="description" th:field="*{description}" required></textarea>
-        <div class="form-group">
-            <label for="photo">Upload Photo:</label>
-            <input type="file" id="photo" name="photo" accept="image/*">
         </div>
-        <div class="form-group">
-            <label for="photo">Upload Photo:</label>
-            <input type="file" id="photo" name="photo" accept="image/*">
-        </div>
-        
+        <!-- Add other form fields as needed -->
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
 </body>
