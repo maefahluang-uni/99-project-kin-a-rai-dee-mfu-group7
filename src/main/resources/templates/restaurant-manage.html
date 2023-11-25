@@ -1,4 +1,4 @@
-<!-- list-restaurants.html -->
+<!-- restaurant-manage.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<h2>Restaurant List</h2>
+<h2>Restaurant Management</h2>
 
 <table>
     <!-- Table headers -->
@@ -31,6 +31,10 @@
             <td th:text="${restaurant.location}"></td>
             <td th:text="${#dates.format(restaurant.open, 'yyyy-MM-dd HH:mm:ss')}"></td>
             <td th:text="${restaurant.description}"></td>
+            <td>
+                <!-- Display the restaurant photo if available -->
+                <img th:if="${restaurant.restaurantPhotoFileName != null}" th:src="@{'/uploads/' + restaurant.restaurantPhotoFileName}" alt="Restaurant Photo" width="50px" height="50px" />
+            </td>
             <!-- Actions -->
             <td class="actions">
                 <!-- Link to view/manage menu for the restaurant -->

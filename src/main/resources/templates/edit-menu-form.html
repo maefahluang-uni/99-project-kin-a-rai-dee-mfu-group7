@@ -8,7 +8,7 @@
 
 <h2>Edit Menu for Restaurant: <span th:text="${restaurant.name}"></span></h2>
 
-<form th:action="@{/restaurants/{id}/edit-menu/{menuId}(id=${restaurant.id}, menuId=${menu.id})}" method="post" th:object="${menu}" enctype="multipart/form-data">
+<form th:action="@{/restaurants/{id}/edit-menu/{menuId}(id=${restaurant.id}, menuId=${menu.id})}" method="post" th:object="${menu}">
     <label for="menu_name">Menu Name:</label>
     <input type="text" th:field="*{menu_name}" required/><br/>
 

@@ -1,13 +1,18 @@
 package th.mfu;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import javax.transaction.Transactional;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +39,9 @@ public class RestaurantController {
     @Autowired
     private MenuRepository menuRepo;
 
+    @Autowired
+    private FileStorageService fileStorageService;
+
     @InitBinder
     public final void initBinderUsuariosFormValidator(final WebDataBinder binder, final Locale locale) {
         final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", locale);
@@ -43,7 +51,7 @@ public class RestaurantController {
     @GetMapping("/restaurants")
     public String listRestaurants(Model model) {
         model.addAttribute("restaurants", restaurantRepo.findAll());
-        return "list-restaurants";
+        return "restaurant-manage";
     }
 
     @GetMapping("/add-restaurant")
@@ -53,14 +61,26 @@ public class RestaurantController {
     }
 
     @PostMapping("/restaurants")
-    public String saveRestaurant(@ModelAttribute Restaurant restaurant) {
+    public String saveRestaurant(@ModelAttribute Restaurant restaurant,
+                                 @RequestParam("restaurantPhoto") MultipartFile restaurantPhoto) {
         try {
+            // Check if a photo is uploaded
+            if (!restaurantPhoto.isEmpty()) {
+                // Store the photo and get the filename
+                String fileName = fileStorageService.storeFile(restaurantPhoto);
+
+                // Set the restaurant photo file name in the restaurant entity
+                restaurant.setRestaurantPhotoFileName(fileName);
+            }
+
             restaurantRepo.save(restaurant);
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
+            return "Error saving restaurant with photo.";
         }
         return "redirect:/restaurants";
     }
+    
     
      @Transactional
     @GetMapping("/delete-restaurant/{id}")
@@ -104,6 +124,26 @@ public class RestaurantController {
         restaurantRepo.save(existingRestaurant);
         return "redirect:/restaurants";
     }
+
+    @GetMapping("/restaurants/{id}/delete-photo")
+    public String deleteRestaurantPhoto(@PathVariable int id) {
+        // Retrieve the restaurant by ID
+        Restaurant restaurant = restaurantRepo.findById(id).orElse(null);
+
+        if (restaurant != null) {
+            // Delete the restaurant photo file
+            fileStorageService.deleteFile(restaurant.getRestaurantPhotoFileName());
+
+            // Set the restaurant photo file name to null in the restaurant entity
+            restaurant.setRestaurantPhotoFileName(null);
+
+            // Save the restaurant without the photo
+            restaurantRepo.save(restaurant);
+        }
+
+        return "redirect:/edit-restaurant/{id}";
+    }
+
     
     @GetMapping("/restaurants/{id}/menus")
     public String viewManageMenus(@PathVariable int id, Model model) {
@@ -118,7 +158,7 @@ public class RestaurantController {
         model.addAttribute("restaurant", restaurant);
         model.addAttribute("menus", menus);
     
-        return "list-menus";
+        return "menu-manage";
     }
     
     @GetMapping("/restaurants/{id}/add-menu")
@@ -172,6 +212,42 @@ public String addMenuForm(@PathVariable int id, Model model) {
             System.err.println("Error adding menu: " + e.getMessage());
             return "redirect:/restaurants";
         }
+    }
+
+    @GetMapping("/restaurants/{id}/edit-menu/{menuId}")
+public String editMenuForm(@PathVariable int id, @PathVariable int menuId, Model model) {
+        Restaurant restaurant = restaurantRepo.findById(id).orElse(null);
+        Menu menu = menuRepo.findById(menuId).orElse(null);
+
+        if (restaurant == null || menu == null) {
+            // Handle the case where the restaurant or menu is not found
+            return "redirect:/restaurants";
+        }
+
+        model.addAttribute("restaurant", restaurant);
+        model.addAttribute("menu", menu);
+
+        return "edit-menu-form";
+    }
+
+    @PostMapping("/restaurants/{id}/edit-menu/{menuId}")
+public String editMenu(@PathVariable int id, @PathVariable int menuId, @ModelAttribute Menu editedMenu) {
+        Restaurant restaurant = restaurantRepo.findById(id).orElse(null);
+        Menu existingMenu = menuRepo.findById(menuId).orElse(null);
+
+        if (restaurant == null || existingMenu == null) {
+            // Handle the case where the restaurant or menu is not found
+            return "redirect:/restaurants";
+        }
+
+        // Update the menu details
+        existingMenu.setMenu_name(editedMenu.getMenu_name());
+        existingMenu.setMenu_price(editedMenu.getMenu_price());
+
+        // Save the updated menu
+        menuRepo.save(existingMenu);
+
+        return "redirect:/restaurants/{id}/menus";
     }
 
 @GetMapping("/restaurants/{id}/delete-menu/{menuId}")
