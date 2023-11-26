@@ -39,7 +39,7 @@ public class MainController {
     // Handler for "/" (home) endpoint
     @GetMapping("/")
     public String home() {
-        return "index"; // Return the home (index) view
+        return "home"; // Return the home (index) view
     }
     
 }
