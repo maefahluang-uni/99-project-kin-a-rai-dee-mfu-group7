@@ -1,30 +1,73 @@
-<!-- add-restaurant-form.html -->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- Include necessary head elements -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Add Restaurant</title>
+
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+
+          <style> body {
+            background-image: url('https://images.unsplash.com/photo-1614851099175-e5b30eb6f696?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }</style>
 </head>
 <body>
-    <h2>Add Restaurant</h2>
-    <form th:action="@{/restaurants}" th:object="${restaurant}" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" th:field="*{name}" required>
-        </div>
-        <div class="form-group">
-            <label for="location">Location:</label>
-            <input type="text" id="location" name="location" th:field="*{location}" required>
-        </div>
-        <div class="form-group">
-            <label for="open">Open Time:</label>
-            <input type="text" id="open" name="open" th:field="*{open}" required>
-        </div>
-        <div class="form-group">
-            <label for="description">Description:</label>
-            <textarea id="description" name="description" th:field="*{description}" required></textarea>
-        </div>
-     
-        <button type="submit" class="btn btn-primary">Save Restaurant</button>
-    </form>
+    <div style="display: flex; justify-content: space-between;">
+    <div>
+     <a class="navbar-brand" href="#" style="margin-left: 2rem;">LOGO</a>
+    </div>
+          <div style="margin-right: 2rem;margin-top: .5rem;">
+            <a href="" >หน้าแรก</a>
+            <a href="">ติดต่อเรา</a>
+            <a href="">เข้าสู่ระบบ</a>
+          </div>
+      </div>
+    <div class="container" style="background-color: rgba(245, 248, 246, 1); box-sizing: border-box; border-radius: 10px; padding: 2rem;margin-top: 4rem;">
+        <h2 class="mt-4 mb-4">เพิ่มร้านอาหารของคุณ</h2>
+        <form action="#" th:action="@{/restaurants}" th:object="${restaurant}" method="post" enctype="multipart/form-data">
+            
+            <div class="form-group">
+                <label for="name">ชื่อร้านอาหาร:</label>
+                <input type="text" class="form-control" id="name" name="name" th:field="*{name}" required>
+            </div>
+            <div class="form-group">
+                <label for="location">ตำแหน่งร้านอาหาร:</label>
+                <input type="text" class="form-control" id="location" name="location" th:field="*{location}" required>
+            </div>
+            <div class="form-group">
+                <label for="open">เวลาเปิดปิดร้านอาหาร:</label>
+                <input type="datetime-local" class="form-control" id="open" name="open" th:field="*{open}" required>
+            </div>
+            <div class="form-group">
+                <label for="description">คำอธิบายเพิ่มเติม:</label>
+                <textarea class="form-control" id="description" name="description" th:field="*{description}" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="image">เพิ่มรูปภาพร้านอาหาร:</label>
+                <input type="file" class="form-control-file" id="image" name="image" accept="image/png, image/jpeg">
+            </div>
+            <!-- Add other form fields as needed -->
+            <button type="submit" class="btn btn-primary " style="background-color: rgba(111, 237, 214, 1);border-color: rgba(111, 237, 214, 1); color: rgba(79, 87, 97, 1);">บันทึก</button>
+        </form>
+    </div>
+
+    <!-- Include Bootstrap JS and Popper.js before closing </body>-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
 </body>
 </html>

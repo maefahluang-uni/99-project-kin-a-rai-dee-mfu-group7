@@ -41,4 +41,5 @@ public class MainController {
     public String home() {
         return "index"; // Return the home (index) view
     }
+    
 }
