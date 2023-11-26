@@ -1,4 +1,5 @@
-package com.example.LoginAndRegistWeb.Service;
+package th.mfu.Service;
+
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 

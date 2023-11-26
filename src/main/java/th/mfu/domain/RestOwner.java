@@ -1,4 +1,4 @@
-
+package th.mfu.domain;
 import java.util.Collection;
 
 import com.example.LoginAndRegistWeb.Role.Role;

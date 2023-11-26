@@ -1,4 +1,4 @@
-
+package th.mfu.DTO;
 // Data Transfer Object (DTO) for user registration
 public class UserRegistrationDto {
     // Properties to hold registration data

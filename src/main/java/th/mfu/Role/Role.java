@@ -1,4 +1,4 @@
-package com.example.LoginAndRegistWeb.Role;
+package th.mfu.Role;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

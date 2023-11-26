@@ -1,4 +1,4 @@
-package th.mfu;
+package th.mfu.Repository;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;

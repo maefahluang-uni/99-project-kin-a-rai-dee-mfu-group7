@@ -1,4 +1,5 @@
-package com.example.LoginAndRegistWeb.Service;
+package th.mfu.Service;
+
 
 import java.util.stream.Collectors;
 import java.util.Arrays;
