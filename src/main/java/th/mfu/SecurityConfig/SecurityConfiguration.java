@@ -50,11 +50,8 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
     http
         // Authorize Requests Configuration
         .authorizeRequests((authz) -> authz
-            .antMatchers("/registration**", "/js/**", "/css/**", "/img/**", "/user-registration**", "/rest-registration**"
-            ,"/")
+            .antMatchers("/registration**", "/js/**", "/css/**", "/img/**", "/user-registration**", "/rest-registration**")
             .permitAll()
-            .antMatchers("/restaurants").hasRole("REST_ROLE")
-
              // Allow access without authentication to specified URL
             .anyRequest().authenticated()) // Require authentication for any other URL
 
