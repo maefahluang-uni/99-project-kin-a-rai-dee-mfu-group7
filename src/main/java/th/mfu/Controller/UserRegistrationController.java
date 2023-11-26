@@ -1,5 +1,6 @@
 package th.mfu.Controller;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +21,8 @@ public class UserRegistrationController {
     private UserService userService;
 
     // Constructor injection of UserService
-    public UserRegistrationController(UserService userService) {
-        super();
+    public void setUserService (@Lazy UserService userService) {
+        
         this.userService = userService;
     }
     

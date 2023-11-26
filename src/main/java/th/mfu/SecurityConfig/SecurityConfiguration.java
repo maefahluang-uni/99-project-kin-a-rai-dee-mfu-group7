@@ -2,6 +2,7 @@ package th.mfu.SecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,7 +20,15 @@ public class SecurityConfiguration {
     
     
     @Autowired
-	private UserService userService;
+    @Lazy
+    private UserService userService;
+
+
+    @Autowired
+    @Lazy
+    public void setUserService(UserService userService) {
+    this.userService = userService;
+    }
     // Bean for Password Encoder
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
