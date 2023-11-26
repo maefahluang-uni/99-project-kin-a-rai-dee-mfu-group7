@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Registration and Login App</title>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+
+	<style>
+        body {
+            background-image: url('https://images.unsplash.com/photo-1614851099175-e5b30eb6f696?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+        }
+    </style>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Noto+Sans+Thai&family=Prompt:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- create navigation bar ( header) -->
+
+<div class="navbar" style="padding-left: 1.5rem;padding: 1rem; background: rgba(255, 255, 255, 0.7);">
+	<div class="logo">
+		<img src="/src/main/resources/statics/pic/logo.png"  style="width:40px;">
+		<a href="" style="color: rgba(119, 119, 119, 1);margin-left: 0.3rem;">กลับหน้าหลัก</a>
+	</div>
+</div>
+	
+
+	<div class="container login-container" style="box-sizing: border-box;background: white;
+	border-radius: 10px; width: 400px;">
+		<div class="row">
+			<div class="col-md-12">
+				<h2 class="text-center mb-4" style="color: rgba(79, 87, 97, 1)">เข้าสู่ระบบ</h2>
+                <p class ="descrtiption" style="text-align: center;margin-top:-0.5rem; color: rgba(119, 119, 119, 1);">กรอกอีเมลและรหัสผ่านของคุณด้านล่าง</p>
+				<form th:action="@{/login}" method="post">
+					<!-- error message -->
+					<div th:if="${param.error}" class="alert alert-danger">Invalid username or password.</div>
+					<!-- logout message -->
+					<div th:if="${param.logout}" class="alert alert-info">You have been logged out.</div>
+					<div class="form-group">
+						<label for="username"style="color: rgba(79, 87, 97, 1);">อีเมล</label>
+						<input type="text" class="form-control" id="username" name="username" placeholder="ตัวอย่าง:user@gmail.com"
+							   autofocus="autofocus">
+					</div>
+					<div class="form-group">
+						<label for="password" style="color: rgba(79, 87, 97, 1);">รหัสผ่าน</label>
+						<input type="password" id="password" name="password" class="form-control" />
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-12">
+								<input type="submit" name="login-submit" id="login-submit" class="btn btn-primary btn-block"
+									   value="Log In" style="background-color:rgba(111, 237, 214, 1);color:rgba(79, 87, 97, 1); border-color:rgba(111, 237, 214, 1) ;"/>
+							</div>
+						</div>
+					</div>
+				</form>
+				<div class="form-group text-center">
+					<span style="color: rgba(79, 87, 97, 1);">ยังไม่มีบัญชีใช้หรือไม่? <a href="/" th:href="@{/registration}">สร้างบัญชี</a></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>

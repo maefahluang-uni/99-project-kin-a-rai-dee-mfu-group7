@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Registration</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+
+	<style>
+        body {
+            background-image: url('https://images.unsplash.com/photo-1614851099175-e5b30eb6f696?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+           
+
+        }
+
+        .registration-container {
+            box-sizing: border-box;
+            background: white;
+            border-radius: 10px;
+            width: 500px;
+        }
+    </style>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Noto+Sans+Thai&family=Prompt:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+
+	<!-- create navigation bar ( header) -->
+	<div class="navbar" style="padding-left: 1.5rem;padding: 1rem; background: rgba(255, 255, 255, 0.7);">
+		<div class="logo">
+			<img src="/src/main/resources/statics/pic/logo.png"  style="width:40px;">
+			<a href="" style="color: rgba(119, 119, 119, 1);margin-left: 0.3rem;">กลับหน้าหลัก</a>
+		</div>
+	</div>
+
+
+	<!-- Create HTML registration form -->
+	<div class="container registration-container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- success message -->
+                <div th:if="${param.success}" class="alert alert-info">You've successfully registered to our awesome app!</div>
+                <h2 class="text-center mb-4" style="color: rgba(79, 87, 97, 1);">สร้างบัญชีร้านอาหารของคุณ</h2>
+                <p class ="descrtiption" style="text-align: center;margin-top:0.5rem; color: rgba(119, 119, 119, 1);">กรอกข้อมูลของคุณเพื่อสร้างบัญชีของคุณ</p>
+                <form th:action="@{/rest-registration}" method="post" th:object="${restaurantOwner}">
+
+                    <div class="form-group-name" style="display: flex;">
+                        <div class="form-group" style="margin-right: 0.9rem; width: 100%">
+                            <label class="control-label" for="firstName"style="color: rgba(79, 87, 97, 1)">ชื่อจริง</label>
+                            <input id="firstName" class="form-control" th:field="*{firstName}" required autofocus="autofocus"/>
+                        </div>
+                        <div class="form-group" style=" width: 100%">
+                            <label class="control-label" for="lastName"style="color: rgba(79, 87, 97, 1)">นามสกุล</label>
+                            <input id="lastName" class="form-control" th:field="*{lastName}" required autofocus="autofocus"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="email"style="color: rgba(79, 87, 97, 1)">บัญชีอีเมล</label>
+                        <input id="email" class="form-control" th:field="*{email}" required autofocus="autofocus"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="password" style="color: rgba(79, 87, 97, 1)">รหัสผ่าน</label>
+                        <input id="password" class="form-control" type="password" th:field="*{password}" required
+                               autofocus="autofocus"/>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block"style="background-color:rgba(111, 237, 214, 1);color:rgba(79, 87, 97, 1); border-color:rgba(111, 237, 214, 1); ">ลงทเบียน</button>
+                        <span class="text-center"style="color: rgba(79, 87, 97, 1) ">มีบัญชีอยู่เเล้วใช่หรือไม่? <a href="/" th:href="@{/login}">เข้าสู่ระบบ</a></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
