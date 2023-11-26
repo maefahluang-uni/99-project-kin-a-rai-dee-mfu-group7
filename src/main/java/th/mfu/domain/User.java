@@ -48,13 +48,14 @@ public class User {
         return id;
     }
 
-    public User(Long id, String firstName, String lastName, String email, String password, Collection<Role> roles) {
+    public User(Long id, String firstName, String lastName, String email, String password,Collection Role) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.roles = roles;
+        this.roles=roles;
+       
     }
 
     public void setId(Long id) {
@@ -94,10 +95,8 @@ public class User {
     }
 
     public Collection<Role> getRoles() {
-        return roles;
+        return null;
     }
 
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
-    }
+    
 }
