@@ -39,9 +39,6 @@ public class RestaurantController {
     @Autowired
     private MenuRepository menuRepo;
 
-    @Autowired
-    private FileStorageService fileStorageService;
-
     @InitBinder
     public final void initBinderUsuariosFormValidator(final WebDataBinder binder, final Locale locale) {
         final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", locale);
@@ -61,26 +58,14 @@ public class RestaurantController {
     }
 
     @PostMapping("/restaurants")
-    public String saveRestaurant(@ModelAttribute Restaurant restaurant,
-                                 @RequestParam("restaurantPhoto") MultipartFile restaurantPhoto) {
+    public String saveRestaurant(@ModelAttribute Restaurant restaurant) {
         try {
-            // Check if a photo is uploaded
-            if (!restaurantPhoto.isEmpty()) {
-                // Store the photo and get the filename
-                String fileName = fileStorageService.storeFile(restaurantPhoto);
-
-                // Set the restaurant photo file name in the restaurant entity
-                restaurant.setRestaurantPhotoFileName(fileName);
-            }
-
             restaurantRepo.save(restaurant);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return "Error saving restaurant with photo.";
         }
         return "redirect:/restaurants";
     }
-    
     
      @Transactional
     @GetMapping("/delete-restaurant/{id}")
@@ -89,6 +74,8 @@ public class RestaurantController {
         restaurantRepo.deleteById(id);
         return "redirect:/restaurants";
     }
+
+
 
     @GetMapping("/edit-restaurant/{id}")
     public String editRestaurantForm(@PathVariable int id, Model model) {
@@ -125,26 +112,6 @@ public class RestaurantController {
         return "redirect:/restaurants";
     }
 
-    @GetMapping("/restaurants/{id}/delete-photo")
-    public String deleteRestaurantPhoto(@PathVariable int id) {
-        // Retrieve the restaurant by ID
-        Restaurant restaurant = restaurantRepo.findById(id).orElse(null);
-
-        if (restaurant != null) {
-            // Delete the restaurant photo file
-            fileStorageService.deleteFile(restaurant.getRestaurantPhotoFileName());
-
-            // Set the restaurant photo file name to null in the restaurant entity
-            restaurant.setRestaurantPhotoFileName(null);
-
-            // Save the restaurant without the photo
-            restaurantRepo.save(restaurant);
-        }
-
-        return "redirect:/edit-restaurant/{id}";
-    }
-
-    
     @GetMapping("/restaurants/{id}/menus")
     public String viewManageMenus(@PathVariable int id, Model model) {
         Restaurant restaurant = restaurantRepo.findById(id).orElse(null);

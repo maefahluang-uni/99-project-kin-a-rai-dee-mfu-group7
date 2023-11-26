@@ -9,8 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 @Entity
@@ -21,8 +19,7 @@ public class Restaurant {
     private String name;
     private String location;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date open;
+    private String open;
 
     private String description;
     
@@ -58,11 +55,11 @@ public class Restaurant {
         this.location = location;
     }
 
-    public Date getOpen() {
+    public String getOpen() {
         return open;
     }
 
-    public void setOpen(Date open) {
+    public void setOpen(String open) {
         this.open = open;
     }
 
