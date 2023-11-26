@@ -1,0 +1,25 @@
+<!-- edit-restaurant-form.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Restaurant</title>
+</head>
+<body>
+
+<h2>Edit Restaurant</h2>
+
+<form th:action="@{/edit-restaurant/{id}(id=${restaurant.id})}" th:object="${restaurant}" method="post">
+    <label for="name">Name:</label>
+    <input type="text" th:field="*{name}" required/><br/>
+
+    <label for="open">Open Time:</label>
+    <input type="text" th:field="*{open}" required/><br/>
+
+    <label for="description">Description:</label>
+    <textarea th:field="*{description}" required></textarea><br/>
+
+    <button type="submit">Save Changes</button>
+</form>
+
+</body>
+</html>
