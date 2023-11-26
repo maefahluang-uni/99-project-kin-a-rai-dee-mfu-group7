@@ -40,22 +40,18 @@ public class User {
     }
     
     // Constructor with parameters for convenient object creation
-   
+    public User(String firstName, String lastName, String email, String password, Collection<Role> roles) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+    }
     
     // Getter and Setter methods 
 
     public Long getId() {
         return id;
-    }
-
-    public User(Long id, String firstName, String lastName, String email, String password,Collection Role) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.roles=roles;
-       
     }
 
     public void setId(Long id) {
@@ -95,8 +91,11 @@ public class User {
     }
 
     public Collection<Role> getRoles() {
-        return null;
+        return roles;
     }
 
-    
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
+    }
 }
+
