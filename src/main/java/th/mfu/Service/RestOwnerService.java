@@ -1,11 +1,12 @@
 package th.mfu.Service;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-import com.example.LoginAndRegistWeb.Entity.User;
+import th.mfu.DTO.RestaurantOwnerRegistrationDto;
+import th.mfu.domain.RestaurantOwner;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 
-@Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-     //Finds a user by their email address.
-    User findByEmail(String email);
+
+
+
+public interface RestOwnerService extends UserDetailsService{
+	RestaurantOwner save(RestaurantOwnerRegistrationDto registrationDto);
 }

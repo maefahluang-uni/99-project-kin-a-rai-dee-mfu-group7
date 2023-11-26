@@ -1,4 +1,4 @@
-package th.mfu.Contrller;
+package th.mfu.Controller;
 
 import org.springframework.stereotype.Controller;
 
@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.LoginAndRegistWeb.Entity.UserRegistrationDto;
-import com.example.LoginAndRegistWeb.Service.UserService;
+import th.mfu.DTO.UserRegistrationDto;
+import th.mfu.Service.UserService;
+
 
 
 //Registration for NEW user 

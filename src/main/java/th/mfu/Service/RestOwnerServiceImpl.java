@@ -11,11 +11,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.LoginAndRegistWeb.Entity.RestaurantOwner;
-import com.example.LoginAndRegistWeb.Entity.RestaurantOwnerRegistrationDto;
+import th.mfu.DTO.RestaurantOwnerRegistrationDto;
+import th.mfu.Repository.RestaurantOwnerRepository;
+import th.mfu.Role.Role;
+import th.mfu.domain.RestaurantOwner;taurantOwner;
 
-import com.example.LoginAndRegistWeb.Repo.RestaurantOwnerRepository;
-import com.example.LoginAndRegistWeb.Role.Role;
+
 
 @Service
 public class RestOwnerServiceImpl implements RestOwnerService{

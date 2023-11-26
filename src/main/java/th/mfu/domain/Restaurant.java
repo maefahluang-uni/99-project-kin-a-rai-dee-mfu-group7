@@ -86,5 +86,9 @@ public class Restaurant {
     public void setRestaurantPhotoFileName(String restaurantPhotoFileName) {
         this.restaurantPhotoFileName = restaurantPhotoFileName;
     }
+
+    public static Object findAll() {
+        return null;
+    }
 }
 

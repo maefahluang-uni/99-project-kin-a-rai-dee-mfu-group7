@@ -1,4 +1,4 @@
-package th.mfu.Contrller;
+package th.mfu.Controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import th.mfu.Repository.MenuRepository;
+import th.mfu.Repository.RestaurantRepository;
 import th.mfu.domain.Menu;
 import th.mfu.domain.Restaurant;
 
@@ -47,7 +49,7 @@ public class RestaurantController {
 
     @GetMapping("/restaurants")
     public String listRestaurants(Model model) {
-        model.addAttribute("restaurants", restaurantRepo.findAll());
+        model.addAttribute("restaurants", Restaurant.findAll());
         return "restaurant-manage";
     }
 

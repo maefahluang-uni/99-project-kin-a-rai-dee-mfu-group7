@@ -1,11 +1,13 @@
-package th.mfu.Contrller;
+package th.mfu.Controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.example.LoginAndRegistWeb.Entity.RestaurantOwnerRegistrationDto;
-import com.example.LoginAndRegistWeb.Service.RestOwnerService;
+
+import th.mfu.DTO.RestaurantOwnerRegistrationDto;
+import th.mfu.Service.RestOwnerService;
+
 
 
 // For NEW Resttaurant Owner registration

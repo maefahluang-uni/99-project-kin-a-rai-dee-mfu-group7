@@ -3,8 +3,10 @@ package th.mfu.Service;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import com.example.LoginAndRegistWeb.Entity.User;
-import com.example.LoginAndRegistWeb.Entity.UserRegistrationDto;
+import th.mfu.DTO.UserRegistrationDto;
+import th.mfu.domain.User;
+
+
 
 
 

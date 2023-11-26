@@ -9,7 +9,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.example.LoginAndRegistWeb.Service.UserService;
+import th.mfu.Service.UserService;
+
+
 
 @Configuration
 @EnableWebSecurity

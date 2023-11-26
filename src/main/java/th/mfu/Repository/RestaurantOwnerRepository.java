@@ -2,7 +2,9 @@ package th.mfu.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.LoginAndRegistWeb.Entity.RestaurantOwner;
+import th.mfu.domain.RestaurantOwner;
+
+
 
 // Repository interface for the RestaurantOwner entity
 @Repository

@@ -1,19 +1,10 @@
 package th.mfu.domain;
 
 import java.util.Collection;
-import com.example.LoginAndRegistWeb.Role.Role;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
-import jakarta.persistence.JoinColumn;
+import java.util.List;
+
+import javax.management.relation.Role;
+import javax.persistence.*;
 
 @Entity
 @Table(name =  "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
@@ -49,18 +40,21 @@ public class User {
     }
     
     // Constructor with parameters for convenient object creation
-    public User(String firstName, String lastName, String email, String password, Collection<Role> roles) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.roles = roles;
-    }
+   
     
     // Getter and Setter methods 
 
     public Long getId() {
         return id;
+    }
+
+    public User(Long id, String firstName, String lastName, String email, String password, Collection<Role> roles) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
     }
 
     public void setId(Long id) {
