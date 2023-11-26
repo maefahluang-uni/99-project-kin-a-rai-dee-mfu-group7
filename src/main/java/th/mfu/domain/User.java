@@ -3,8 +3,9 @@ package th.mfu.domain;
 import java.util.Collection;
 import java.util.List;
 
-import javax.management.relation.Role;
 import javax.persistence.*;
+
+import th.mfu.role.Role;
 
 @Entity
 @Table(name =  "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
