@@ -1,4 +1,4 @@
-package com.example.LoginAndRegistWeb.Controller;
+package th.mfu.Contrller;
 
 import org.springframework.stereotype.Controller;
 
