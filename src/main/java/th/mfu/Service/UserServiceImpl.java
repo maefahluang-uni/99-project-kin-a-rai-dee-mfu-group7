@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import th.mfu.DTO.UserRegistrationDto;
 import th.mfu.Repository.UserRepository;
 import th.mfu.domain.User;
-import th.mfu.domain.role;
 import th.mfu.role.Role;
 
 
@@ -69,9 +68,9 @@ public class UserServiceImpl implements UserService {
     }
 
     // Private method to map roles to authorities
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<javax.management.relation.Role> collection) {
         // Mapping roles to SimpleGrantedAuthority and collecting them into a list
-        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+        return collection.stream().map(role -> new SimpleGrantedAuthority(role.getRoleName())).collect(Collectors.toList());
     }
 
 	

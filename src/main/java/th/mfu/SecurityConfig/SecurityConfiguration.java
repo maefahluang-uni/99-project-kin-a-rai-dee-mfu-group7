@@ -40,8 +40,8 @@ public class SecurityConfiguration {
 public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
         // Authorize Requests Configuration
-        .authorizeHttpRequests((authz) -> authz
-            .requestMatchers("/registration**", "/js/**", "/css/**", "/img/**","/user-registration**","/rest-registration**")
+        .authorizeRequests((authz) -> authz
+            .antMatchers("/registration**", "/js/**", "/css/**", "/img/**", "/user-registration**", "/rest-registration**")
             .permitAll() // Allow access without authentication to specified URL
             .anyRequest().authenticated()) // Require authentication for any other URL
 
@@ -50,7 +50,7 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
             formLogin
                 .loginPage("/login") // Set custom login page URL
                 .defaultSuccessUrl("/") // Set default success URL after login
-                .permitAll()) // Allow access to login page without authentication
+                .permitAll()) // Allow access to the login page without authentication
 
         // Logout Configuration
         .logout(logout ->
@@ -58,13 +58,12 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
                 .invalidateHttpSession(true) // Invalidate the HTTP session on logout
                 .clearAuthentication(true) // Clear authentication on logout
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) // Set the URL for logout
-                .logoutSuccessUrl("/login?logout") // Redirect to login page with logout parameter
+                .logoutSuccessUrl("/login?logout") // Redirect to the login page with logout parameter
                 .permitAll()); // Allow access to the logout URL without authentication
 
     // Build and return the configured http object
     return http.build();
 }
-
 
    
 }

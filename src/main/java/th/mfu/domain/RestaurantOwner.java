@@ -1,5 +1,6 @@
 package th.mfu.domain;
 import java.util.Collection;
+import java.util.List;
 
 import javax.management.relation.Role;
 import javax.persistence.*;
@@ -29,19 +30,19 @@ public class RestaurantOwner {
         name = "rests_roles",
         joinColumns = @JoinColumn(name = "restOwner_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private Collection<Role> roles;
+    private Collection<th.mfu.role.Role> roles;
 
     // Default constructor
     public RestaurantOwner() {
     }
 
     // Constructor with parameters
-    public RestaurantOwner(String firstName, String lastName, String email, String password, Collection<Role> roles) {
+    public RestaurantOwner(String firstName, String lastName, String email, String password, List<th.mfu.role.Role> list) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.roles = roles;
+        this.roles = list;
     }
 
     // Getter and Setter methods 
@@ -86,11 +87,13 @@ public class RestaurantOwner {
         this.password = password;
     }
 
-    public Collection<Role> getRoles() {
+    public Collection<th.mfu.role.Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Collection<Role> roles) {
+    public void setRoles(Collection<th.mfu.role.Role> roles) {
         this.roles = roles;
     }
+
+    
 }

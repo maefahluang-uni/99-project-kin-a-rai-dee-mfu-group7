@@ -35,7 +35,7 @@ public class User {
     private Collection<Role> roles;
     
     // Default constructor
-    public User() {
+    public User(String string, String string2, String string3, String string4, List<th.mfu.role.Role> list) {
         
     }
     
