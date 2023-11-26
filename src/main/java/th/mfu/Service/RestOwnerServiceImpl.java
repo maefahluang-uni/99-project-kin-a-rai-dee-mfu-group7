@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import th.mfu.DTO.RestaurantOwnerRegistrationDto;
 import th.mfu.Repository.RestaurantOwnerRepository;
-import th.mfu.Role.Role;
+import th.mfu.role.Role;
 import th.mfu.domain.RestaurantOwner;taurantOwner;
 
 

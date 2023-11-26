@@ -1,4 +1,4 @@
-package th.mfu.Role;
+package th.mfu.role;
 import javax.persistence.*;
 
 

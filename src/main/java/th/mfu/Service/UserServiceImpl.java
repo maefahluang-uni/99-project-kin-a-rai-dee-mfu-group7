@@ -16,7 +16,8 @@ import org.springframework.stereotype.Service;
 import th.mfu.DTO.UserRegistrationDto;
 import th.mfu.Repository.UserRepository;
 import th.mfu.domain.User;
-
+import th.mfu.domain.role;
+import th.mfu.role.Role;
 
 
 @Service
